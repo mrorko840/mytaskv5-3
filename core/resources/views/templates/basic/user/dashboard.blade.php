@@ -302,9 +302,7 @@
                         <p class="text-secondary">Take a look at our services</p>
                     </div>
                 </div>
-                <div class="row text-center mt-3">
-
-
+                {{-- <div class="row text-center mt-3">
                     <div class="col-6 col-md-3">
                         <div class="card border-0 mb-4">
                             <div class="card-body">
@@ -327,7 +325,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
 
             <!-- Swiper Our Reviews-->

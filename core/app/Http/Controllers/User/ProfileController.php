@@ -278,7 +278,11 @@ class ProfileController extends Controller
             return collect($item)->sum('amount');
         })->sort()->reverse()->take(7)->toArray();
 
-        return view($this->activeTemplate. 'user.analytics', $data, compact('user','chart', 'widget', 'pageTitle', 'remarks','transactions','total_ptc_earn', 'ptc','total_commission','total_invest'));
+        $total['earn'] = Transaction::where('user_id', auth()->user()->id)
+                                    ->where('remark', 'ptc_earn')
+                                    ->sum('amount');
+
+        return view($this->activeTemplate. 'user.analytics', $data, compact('user', 'total','chart', 'widget', 'pageTitle', 'remarks','transactions','total_ptc_earn', 'ptc','total_commission','total_invest'));
     }
 
 

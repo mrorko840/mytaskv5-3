@@ -38,7 +38,7 @@
                             <div class="card-body">
                                 <canvas id="doghnutchart" class="mb-3"></canvas>
                                 <p class="text-secondary mb-2">Total Earnings</p>
-                                <h6>{{ $general->cur_sym }} {{ showAmount($ptc->sum('amount') + $total_commission) }}</h6>
+                                <h6>{{ $general->cur_sym }} {{ showAmount($total['earn'] + $total_commission) }}</h6>
                                 {{-- <p class="text-success">{{ intval(@$widget['win_raito']) }}% <span class="material-icons small">call_made</span></p> --}}
                             </div>
                         </div>
@@ -76,7 +76,7 @@
                 </div>
             </div>
 
-            <div class="container mb-4">
+            {{-- <div class="container mb-4">
                 <div class="row mb-3">
                     <div class="col">
                         <h6 class="subtitle mb-0">@lang('Click & Earn Report')</h6>
@@ -91,7 +91,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
             <!-- Swiper Our Reviews-->
             <div class="container mb-4">
