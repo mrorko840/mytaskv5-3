@@ -37,10 +37,16 @@
                             <div class="col-11 col-sm-7 col-md-6 col-lg-5 col-xl-4">
                                 <h2 class="font-weight-normal mb-5">Create new<br>account with us</h2>
                                 @if (session()->get('reference') != null)
-                                <div class="form-group float-label active">
-                                    <input class="form-control text-white" id="referenceBy" name="referBy" type="text" value="{{ session()->get('reference') }}" readonly>
-                                    <label class="form-control-label text-white">Refer By</label>
-                                </div>
+                                    <div class="form-group float-label active">
+                                        <input class="form-control text-white" id="referenceBy" name="referBy" type="text" value="{{ session()->get('reference') }}" readonly>
+                                        <label class="form-control-label text-white">Refer By</label>
+                                    </div>
+                                @else
+                                    <div class="form-group float-label active">
+                                        <input class="form-control text-white checkRefBy" id="referenceBy" name="referBy" type="text" value="{{ session()->get('reference') }}">
+                                        <label class="form-control-label text-white">Refer By <small class="text-warning">(Optional)</small></label>
+                                        <small class="text-danger refByExist"></small>
+                                    </div>
                                 @endif
                                 <div class="form-group float-label active">
                                     <input class="form-control text-white checkUser" id="username" name="username" type="text" value="{{ old('username') }}" required>
@@ -196,6 +202,29 @@
                 });
             @endif
 
+            $('.checkRefBy').on('focusout', function (e) {
+                var url = '{{ route('user.checkUser') }}';
+                var value = $(this).val();
+                var token = '{{ csrf_token() }}';
+
+                if ($(this).attr('name') == 'referBy') {
+                    var data = {
+                        referBy: value,
+                        _token: token
+                    }
+                }
+
+                $.post(url, data, function(response) {
+                    console.log(response);
+                    if (response.data != false && response.type == 'referBy') {
+                        $('.refByExist').removeClass('text-danger').addClass('text-success').html('Reffer Found!');
+                        
+                    }else {
+                        $('.refByExist').removeClass('text-success').addClass('text-danger').html('Reffer Not Found!');
+                    }
+                });
+            });
+
             $('.checkUser').on('focusout', function(e) {
                 var url = '{{ route('user.checkUser') }}';
                 var value = $(this).val();
@@ -219,6 +248,12 @@
                         _token: token
                     }
                 }
+                if ($(this).attr('name') == 'referBy') {
+                    var data = {
+                        username: value,
+                        _token: token
+                    }
+                }
                 $.post(url, data, function(response) {
                     if (response.data != false && response.type == 'email') {
                         $('#existModalCenter').modal('show');
@@ -229,6 +264,7 @@
                     }
                 });
             });
+
         })(jQuery);
     </script>
 @endpush

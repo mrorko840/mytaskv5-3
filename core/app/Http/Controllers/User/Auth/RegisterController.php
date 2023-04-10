@@ -221,6 +221,11 @@ class RegisterController extends Controller
             $exist['data'] = User::where('username',$request->username)->exists();
             $exist['type'] = 'username';
         }
+        if ($request->referBy) {
+            $exist['data'] = User::where('username', $request->referBy)->exists();
+            $exist['type'] = 'referBy';
+        }
+
         return response($exist);
     }
 

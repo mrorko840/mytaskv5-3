@@ -277,13 +277,13 @@ class UserController extends Controller
         ]);
         $user->firstname = $request->firstname;
         $user->lastname = $request->lastname;
-        $user->address = [
-            'country' => @$user->address->country,
-            'address' => $request->address,
-            'state' => $request->state,
-            'zip' => $request->zip,
-            'city' => $request->city,
-        ];
+        // $user->address = [
+        //     'country' => @$user->address->country,
+        //     'address' => $request->address,
+        //     'state' => $request->state,
+        //     'zip' => $request->zip,
+        //     'city' => $request->city,
+        // ];
         $user->reg_step = 1;
         $user->save();
 

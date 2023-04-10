@@ -19,7 +19,7 @@
         
         <!-- Cover Photo -->
         {{-- <div style="background-image: url({{ getImage('assets/images/user/cover/'.$user->cover_image) }})" class="coverPhoto"></div> --}}
-        <div style="background-image: url({{ asset('assets/templates/basic/assets/img/banner/banner-2.png') }})" class="coverPhoto"></div>
+        <div style="background-image: url({{ asset('assets/images/frontend/links/'. @$yourLinks->data_values->cover_photo) }})" class="coverPhoto"></div>
         <div class="text-right">
             <form id="coverImgForm">
                 <div class="avatar-edit">

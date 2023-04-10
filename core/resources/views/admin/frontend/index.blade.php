@@ -25,7 +25,7 @@
                                                     <div class="image-upload">
                                                         <div class="thumb">
                                                             <div class="avatar-preview">
-                                                                <div class="profilePicPreview" style="background-image: url({{getImage('assets/images/frontend/' . $key .'/'. @$content->data_values->$imgKey,@$section->content->images->$imgKey->size) }})">
+                                                                <div class="profilePicPreview" style="background-image: url({{asset('assets/images/frontend/' . $key .'/'. @$content->data_values->$imgKey) }})">
                                                                     <button type="button" class="remove-image"><i class="fa fa-times"></i></button>
                                                                 </div>
                                                             </div>
@@ -163,7 +163,7 @@
                                                 <td>
                                                     <div class="customer-details d-block">
                                                         <a href="javascript:void(0)" class="thumb">
-                                                            <img src="{{ getImage('assets/images/frontend/' . $key .'/'. @$data->data_values->$firstKey,@$section->element->images->$firstKey->size) }}" alt="@lang('image')">
+                                                            <img src="{{ asset('assets/images/frontend/' . $key .'/'. @$data->data_values->$firstKey) }}" alt="@lang('image')">
                                                         </a>
                                                     </div>
                                                 </td>
@@ -191,7 +191,7 @@
                                                         $images = [];
                                                         if(@$section->element->images){
                                                             foreach($section->element->images as $imgKey => $imgs){
-                                                                $images[] = getImage('assets/images/frontend/' . $key .'/'. @$data->data_values->$imgKey,@$section->element->images->$imgKey->size);
+                                                                $images[] = asset('assets/images/frontend/' . $key .'/'. @$data->data_values->$imgKey);
                                                             }
                                                         }
                                                     @endphp
@@ -269,7 +269,7 @@
                                             <div class="image-upload">
                                                 <div class="thumb">
                                                     <div class="avatar-preview">
-                                                        <div class="profilePicPreview" style="background-image: url({{ getImage('/',@$section->element->images->$imgKey->size) }})">
+                                                        <div class="profilePicPreview" style="background-image: url({{ asset('/',@$section->element->images->$imgKey->size) }})">
                                                             <button type="button" class="remove-image"><i class="fa fa-times"></i></button>
                                                         </div>
                                                     </div>

@@ -531,7 +531,7 @@ function dateSorting($arr)
 function levelCommission($referee, $amount, $commissionType, $trx)
 {
     $refer_by = $referee->refBy;
-    if($refer_by > 0){
+    if($refer_by){
         if($amount < $refer_by->plan_price){
             $general = gs();
             if (!$general->$commissionType) {
