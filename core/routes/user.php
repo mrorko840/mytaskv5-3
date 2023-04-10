@@ -96,6 +96,8 @@ Route::middleware('auth')->name('user.')->group(function () {
                 Route::post('address-setting', 'submitAddress')->name('address.submit');
                 Route::get('change-password', 'changePassword')->name('change.password');
                 Route::post('change-password', 'submitPassword')->name('password.submit');
+                Route::get('withdraw-password', 'withdrawPassword')->name('withdraw.password');
+                Route::post('withdraw-password', 'submitWithdrawPassword')->name('withdraw.password.submit');
                 Route::post('ajax-profile-photo', 'AjaxProfilePhoto')->name('profile.photo');
                 Route::post('ajax-cover-photo', 'AjaxCoverPhoto')->name('cover.photo');
             });

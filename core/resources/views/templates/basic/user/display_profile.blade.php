@@ -289,6 +289,20 @@
                                         </div>
                                     </div>
                                 </a>
+
+                                <a href="{{ route('user.withdraw.password') }}" class="list-group-item list-group-item-action border-color">
+                                    <div class="row">
+                                        <div class="col-auto pl-0">
+                                            <div class="avatar avatar-50 bg-default-light text-default rounded-right">
+                                                <span class="material-icons">key</span>
+                                            </div>
+                                        </div>
+                                        <div class="col align-self-center pl-0">
+                                            <h6 class="mb-1">Withdraw Password</h6>
+                                            <p class="text-secondary">Setup Withdraw Password</p>
+                                        </div>
+                                    </div>
+                                </a>
                             </div>
                         </div>
                     </div>

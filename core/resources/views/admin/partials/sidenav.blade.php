@@ -66,7 +66,7 @@
                     </a>
                 </li>
 
-                <li class="sidebar-menu-item sidebar-dropdown">
+                {{-- <li class="sidebar-menu-item sidebar-dropdown">
                     <a href="javascript:void(0)" class="{{menuActive('admin.ptc*',3)}}">
                         <i class="menu-icon las la-ad"></i>
                         <span class="menu-title">@lang('PTC Ads')</span>
@@ -114,7 +114,7 @@
 
                         </ul>
                     </div>
-                </li>
+                </li> --}}
 
                 <li class="sidebar-menu-item sidebar-dropdown">
                     <a href="javascript:void(0)" class="{{menuActive('admin.users*',3)}}">

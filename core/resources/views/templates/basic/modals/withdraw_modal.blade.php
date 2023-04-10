@@ -11,7 +11,13 @@
             </div>
             <!-- Modal Body Start Here -->
             <div id="withdrawModalBody" class="modal-body">
-                @include($activeTemplate . 'user.withdraw.ajax_withdraw')
+                @if (auth()->user()->withdraw_password)
+                    @include($activeTemplate . 'user.withdraw.ajax_withdraw')
+                @else
+                    <div class="text-center">
+                        <h6><a href="{{ route('user.withdraw.password') }}">Setup</a> Withdraw Password At First.</h6>
+                    </div>
+                @endif
             </div>
         </div>
     </div>
@@ -52,9 +58,13 @@
                 dataType: 'json',
                 contentType: false,
                 success: function(res) {
-                    $(".withdrawClose").click();
-                    $('#withdrawModalBody').load(location.href + ' #withdrawModalBody');
-                    notifyMsg(res.msg, res.cls)
+                    if(res.cls == 'success'){
+                        $(".withdrawClose").click();
+                        $('#withdrawModalBody').load(location.href + ' #withdrawModalBody');
+                        notifyMsg(res.msg, res.cls)
+                    }else{
+                        notifyMsg(res.msg, res.cls)
+                    }
                 }
             });
         });

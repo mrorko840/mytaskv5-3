@@ -362,6 +362,7 @@ class UserController extends Controller
         $user->expire_date = now()->addDays($plan->validity);
         $user->plan_id = $plan->id;
         $user->plan_price = $plan->price;
+        $user->isClick = date('Yd');
 
         $user->save();
 

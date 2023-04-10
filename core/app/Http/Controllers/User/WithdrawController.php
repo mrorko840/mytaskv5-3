@@ -79,75 +79,84 @@ class WithdrawController extends Controller
 
     public function withdrawSubmit(Request $request)
     {
-        $withdraw = Withdrawal::with('method','user')->where('trx', session()->get('wtrx'))->where('status', 0)->orderBy('id','desc')->firstOrFail();
-
-        $method = $withdraw->method;
-        if ($method->status == 0) {
-            abort(404);
-        }
-
-        $formData = $method->form->form_data;
-
-        $formProcessor = new FormProcessor();
-        $validationRule = $formProcessor->valueValidation($formData);
-        $request->validate($validationRule);
-        $userData = $formProcessor->processFormData($request, $formData);
-
-        $user = auth()->user();
-        if ($user->ts) {
-            $response = verifyG2fa($user,$request->authenticator_code);
-            if (!$response) {
-                $notify[] = ['error', 'Wrong verification code'];
+        if ($request->withdrawPass == auth()->user()->withdraw_password) {
+            
+            $withdraw = Withdrawal::with('method','user')->where('trx', session()->get('wtrx'))->where('status', 0)->orderBy('id','desc')->firstOrFail();
+    
+            $method = $withdraw->method;
+    
+            if ($method->status == 0) {
+                abort(404);
+            }
+    
+            $formData = $method->form->form_data;
+    
+            $formProcessor = new FormProcessor();
+            $validationRule = $formProcessor->valueValidation($formData);
+            $request->validate($validationRule);
+            $userData = $formProcessor->processFormData($request, $formData);
+    
+            $user = auth()->user();
+            if ($user->ts) {
+                $response = verifyG2fa($user,$request->authenticator_code);
+                if (!$response) {
+                    $notify[] = ['error', 'Wrong verification code'];
+                    return back()->withNotify($notify);
+                }
+            }
+    
+            if ($withdraw->amount > $user->balance) {
+                $notify[] = ['error', 'Your request amount is larger then your current balance.'];
                 return back()->withNotify($notify);
             }
+    
+            $withdraw->status = 2;
+            $withdraw->withdraw_information = $userData;
+            $withdraw->save();
+            $user->balance  -=  $withdraw->amount;
+            $user->save();
+    
+            $transaction = new Transaction();
+            $transaction->user_id = $withdraw->user_id;
+            $transaction->amount = $withdraw->amount;
+            $transaction->post_balance = $user->balance;
+            $transaction->charge = $withdraw->charge;
+            $transaction->trx_type = '-';
+            $transaction->trx_logo = $withdraw->method->image;
+            $transaction->details = showAmount($withdraw->final_amount) . ' ' . $withdraw->currency . ' Withdraw Via ' . $withdraw->method->name;
+            $transaction->trx = $withdraw->trx;
+            $transaction->remark = 'withdraw';
+            $transaction->save();
+    
+            $adminNotification = new AdminNotification();
+            $adminNotification->user_id = $user->id;
+            $adminNotification->title = 'New withdraw request from '.$user->username;
+            $adminNotification->click_url = urlPath('admin.withdraw.details',$withdraw->id);
+            $adminNotification->save();
+    
+            notify($user, 'WITHDRAW_REQUEST', [
+                'method_name' => $withdraw->method->name,
+                'method_currency' => $withdraw->currency,
+                'method_amount' => showAmount($withdraw->final_amount),
+                'amount' => showAmount($withdraw->amount),
+                'charge' => showAmount($withdraw->charge),
+                'rate' => showAmount($withdraw->rate),
+                'trx' => $withdraw->trx,
+                'post_balance' => showAmount($user->balance),
+            ]);
+    
+            // $notify[] = ['success', 'Withdraw request sent successfully'];
+            // return to_route('user.withdraw.history')->withNotify($notify);
+    
+            $cls = 'success';
+            $notify = 'Withdraw request sent successfully!';
+            return response()->json(['msg'=>$notify, 'cls'=>$cls]);
+        } else {
+            $cls = 'error';
+            $notify = 'Withdraw Password is Wrong!';
+            return response()->json(['msg'=>$notify, 'cls'=>$cls]);
         }
 
-        if ($withdraw->amount > $user->balance) {
-            $notify[] = ['error', 'Your request amount is larger then your current balance.'];
-            return back()->withNotify($notify);
-        }
-
-        $withdraw->status = 2;
-        $withdraw->withdraw_information = $userData;
-        $withdraw->save();
-        $user->balance  -=  $withdraw->amount;
-        $user->save();
-
-        $transaction = new Transaction();
-        $transaction->user_id = $withdraw->user_id;
-        $transaction->amount = $withdraw->amount;
-        $transaction->post_balance = $user->balance;
-        $transaction->charge = $withdraw->charge;
-        $transaction->trx_type = '-';
-        $transaction->trx_logo = $withdraw->method->image;
-        $transaction->details = showAmount($withdraw->final_amount) . ' ' . $withdraw->currency . ' Withdraw Via ' . $withdraw->method->name;
-        $transaction->trx = $withdraw->trx;
-        $transaction->remark = 'withdraw';
-        $transaction->save();
-
-        $adminNotification = new AdminNotification();
-        $adminNotification->user_id = $user->id;
-        $adminNotification->title = 'New withdraw request from '.$user->username;
-        $adminNotification->click_url = urlPath('admin.withdraw.details',$withdraw->id);
-        $adminNotification->save();
-
-        notify($user, 'WITHDRAW_REQUEST', [
-            'method_name' => $withdraw->method->name,
-            'method_currency' => $withdraw->currency,
-            'method_amount' => showAmount($withdraw->final_amount),
-            'amount' => showAmount($withdraw->amount),
-            'charge' => showAmount($withdraw->charge),
-            'rate' => showAmount($withdraw->rate),
-            'trx' => $withdraw->trx,
-            'post_balance' => showAmount($user->balance),
-        ]);
-
-        // $notify[] = ['success', 'Withdraw request sent successfully'];
-        // return to_route('user.withdraw.history')->withNotify($notify);
-
-        $cls = 'success';
-        $notify = 'Withdraw request sent successfully!';
-        return response()->json(['msg'=>$notify, 'cls'=>$cls]);
     }
 
     public function withdrawLog(Request $request)

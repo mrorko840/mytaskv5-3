@@ -189,6 +189,26 @@ class ProfileController extends Controller
         }
     }
 
+    public function withdrawPassword(){
+        $pageTitle = 'Withdraw Password';
+        return view($this->activeTemplate . 'user.withdraw_password', compact('pageTitle'));
+    }
+
+    public function submitWithdrawPassword(Request $request){
+        $request->validate([
+            'withdraw_password'=> 'required|numeric|digits:4'
+        ]);
+
+        $user = auth()->user();
+        $user->withdraw_password = $request->withdraw_password;
+        $user->save();
+
+        $cls = 'success';
+        $notify = 'Withdraw Password Set successfully!';
+        return response()->json(['msg'=>$notify, 'cls'=>$cls]);
+
+    }
+
     // public function submitPassword(Request $request)
     // {
 

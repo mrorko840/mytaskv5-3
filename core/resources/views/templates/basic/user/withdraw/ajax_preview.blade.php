@@ -14,6 +14,12 @@
                                     echo $withdraw->method->description;
                                 @endphp
                             </div>
+                            <div class="row py-2">
+                                <div class="col">
+                                    <label for="withdrawPass">Withdraw Password</label>
+                                    <input id="withdrawPass" class="form-control" type="text" name="withdrawPass" placeholder="Enter your Withdraw Pin" required>
+                                </div>
+                            </div>
                             <x-viser-form identifier="id" identifierValue="{{ $withdraw->method->form_id }}" />
                             @if(auth()->user()->ts)
                             <div class="form-group">
