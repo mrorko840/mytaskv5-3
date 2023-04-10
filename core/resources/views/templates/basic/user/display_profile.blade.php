@@ -162,7 +162,7 @@
                                         Deposit
                                     </div>
                                 </div>
-                                <div style="flex-direction: column;" class="col d-flex justify-content-center align-items-center">
+                                {{-- <div style="flex-direction: column;" class="col d-flex justify-content-center align-items-center">
                                     <a class="d-flex blalnceCardBtn" href="javascript:void(0)" 
                                         @if ($general->balance_transfer == 0) 
                                             onclick="notifyMsg('User balance transfer currently disabled!','error')" 
@@ -176,7 +176,7 @@
                                     <div class="text-center pt-1">
                                         Transfer
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div style="flex-direction: column;" class="col d-flex justify-content-center align-items-center">
                                     <a class="d-flex blalnceCardBtn" href="javascript:void(0)" data-toggle="modal" data-target="#withdrawModal">
                                         <span class="material-icons">

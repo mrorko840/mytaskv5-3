@@ -137,10 +137,10 @@
                 <div class="row">
                     <div class="col-12 text-center">
                         @if (auth()->user()->isClick < date('Yd'))
-                            <h6 class="text-success StyleFont" id="btnMsg">Click this button to collect
-                                {{ $user->plan?->ads_rate }} {{ $general->cur_sym }}</h6>
+                            <h5 class="text-primary" id="btnMsg">Click this button to collect
+                                {{ $user->plan?->ads_rate }} {{ $general->cur_sym }}</h5>
                         @else
-                            <h6 class="text-success text-danger StyleFont">You can collect Reward Tomorrow!</h6>
+                            <h5 class="text-success text-danger">You can collect Reward Tomorrow!</h5>
                         @endif
                     </div>
                     {{-- <div class="col-12 text-center">

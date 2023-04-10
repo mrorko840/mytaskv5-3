@@ -26,7 +26,7 @@
                         <div class="row align-items-center">
                             <div class="col-auto pr-0">
                                 <div class="avatar avatar-50 border-0 bg-danger-light rounded-circle text-danger">
-                                    <i class="material-icons vm text-template">card_giftcard</i>
+                                    <i class="material-icons vm text-template">share</i>
                                 </div>
                             </div>
                             <div class="col-auto align-self-center">

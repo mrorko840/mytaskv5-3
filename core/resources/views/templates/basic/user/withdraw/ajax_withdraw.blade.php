@@ -32,7 +32,7 @@
                         </div>
 
                         <div class="col pl-0">
-                            <h6 class="subtitle mb-0">Withdraw via</h6>
+                            <h6 class="subtitle mb-0">Withdraw Via</h6>
                         </div>
                         <div class="col-5">
                             <select style="height: fit-content;" class="form-control form-select p-0 ps-1"

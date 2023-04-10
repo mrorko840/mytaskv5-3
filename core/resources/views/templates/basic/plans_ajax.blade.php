@@ -38,9 +38,14 @@
                         <div class="col">
                             <h5 class="mb-0 mt-3">{{ $general->cur_sym }} {{ __(showAmount($plan->price)) }}</h5>
                         </div>
-                        <div class="col">
+                        {{-- <div class="col">
                             <p class="mb-0 mt-3 text-right">@lang('Daily') {{ $plan->daily_limit }}
                                 @lang('Task')</p>
+                        </div> --}}
+                        <div class="col">
+                            <p class="mb-0 mt-3 text-right">
+                                @lang('Daily Earn') {{ $general->cur_sym }} {{ $plan->ads_rate }} 
+                            </p>
                         </div>
                     </div>
 

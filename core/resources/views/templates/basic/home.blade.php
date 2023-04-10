@@ -262,7 +262,7 @@
                     </div>
                     <!-- PWA add to home display -->
 
-                    <div class="container mb-4">
+                    {{-- <div class="container mb-4">
                         <div class="card border-0 mb-3">
                             <div class="card-body">
                                 <div class="row align-items-center">
@@ -278,7 +278,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <!-- Swiper Our Reviews-->
                     <div class="container mb-4">
