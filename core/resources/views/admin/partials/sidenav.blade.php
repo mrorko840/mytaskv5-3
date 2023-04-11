@@ -473,20 +473,20 @@
                     </a>
                 </li>
 
-                <li class="sidebar-menu-item {{menuActive('admin.extensions.index')}}">
+                {{-- <li class="sidebar-menu-item {{menuActive('admin.extensions.index')}}">
                     <a href="{{route('admin.extensions.index')}}" class="nav-link">
                         <i class="menu-icon las la-cogs"></i>
                         <span class="menu-title">@lang('Extensions')</span>
                     </a>
-                </li>
+                </li> --}}
 
-                <li class="sidebar-menu-item  {{menuActive(['admin.language.manage','admin.language.key'])}}">
+                {{-- <li class="sidebar-menu-item  {{menuActive(['admin.language.manage','admin.language.key'])}}">
                     <a href="{{route('admin.language.manage')}}" class="nav-link"
                        data-default-url="{{ route('admin.language.manage') }}">
                         <i class="menu-icon las la-language"></i>
                         <span class="menu-title">@lang('Language') </span>
                     </a>
-                </li>
+                </li> --}}
 
                 <li class="sidebar-menu-item {{menuActive('admin.seo')}}">
                     <a href="{{route('admin.seo')}}" class="nav-link">
@@ -502,12 +502,12 @@
                     </a>
                 </li>
 
-                <li class="sidebar-menu-item {{menuActive('admin.setting.ads')}}">
+                {{-- <li class="sidebar-menu-item {{menuActive('admin.setting.ads')}}">
                     <a href="{{route('admin.setting.ads')}}" class="nav-link">
                         <i class="menu-icon las la-tags"></i>
                         <span class="menu-title">@lang('Ads Setting')</span>
                     </a>
-                </li>
+                </li> --}}
 
 
                 <li class="sidebar-menu-item sidebar-dropdown">
@@ -545,7 +545,7 @@
                     </div>
                 </li>
 
-                <li class="sidebar__menu-header">@lang('Frontend Manager')</li>
+                {{-- <li class="sidebar__menu-header">@lang('Frontend Manager')</li>
 
                 <li class="sidebar-menu-item {{menuActive('admin.frontend.templates')}}">
                     <a href="{{route('admin.frontend.templates')}}" class="nav-link ">
@@ -559,7 +559,7 @@
                         <i class="menu-icon la la-list"></i>
                         <span class="menu-title">@lang('Manage Pages')</span>
                     </a>
-                </li>
+                </li> --}}
 
                 <!-- Sections -->
 
@@ -633,12 +633,12 @@
                     </div>
                 </li>
 
-                <li class="sidebar-menu-item {{menuActive('admin.setting.custom.css')}}">
+                {{-- <li class="sidebar-menu-item {{menuActive('admin.setting.custom.css')}}">
                     <a href="{{route('admin.setting.custom.css')}}" class="nav-link">
                         <i class="menu-icon lab la-css3-alt"></i>
                         <span class="menu-title">@lang('Custom CSS')</span>
                     </a>
-                </li>
+                </li> --}}
 
                 <li class="sidebar-menu-item  {{menuActive('admin.request.report')}}">
                     <a href="{{route('admin.request.report')}}" class="nav-link"
