@@ -18,17 +18,17 @@
         @include(activeTemplate().'includes.side_nav')
         
         <!-- Cover Photo -->
-        {{-- <div style="background-image: url({{ getImage('assets/images/user/cover/'.$user->cover_image) }})" class="coverPhoto"></div> --}}
-        <div style="background-image: url({{ asset('assets/images/frontend/links/'. @$yourLinks->data_values->cover_photo) }})" class="coverPhoto"></div>
+        <div style="background-image: url({{ getImage('assets/images/user/cover/'.$user->cover_image) }})" class="coverPhoto"></div>
+        {{-- <div style="background-image: url({{ asset('assets/images/frontend/links/'. @$yourLinks->data_values->cover_photo) }})" class="coverPhoto"></div> --}}
         <div class="text-right">
             <form id="coverImgForm">
                 <div class="avatar-edit">
                     <input type='file' class="coverPicUpload" id="cover_image" name="cover_image" accept=".png, .jpg, .jpeg" hidden/>
                     <label id="coverPhotoSpin" 
                         style="position: inherit;" 
-                        {{-- class="text-white bg-orange coverEdit"  --}}
+                        class="text-white bg-orange coverEdit" 
                         for="cover_image">
-                        {{-- <span  class="material-icons">photo_camera</span> --}}
+                        <span  class="material-icons">photo_camera</span>
                     </label>
                 </div>
             </form>
@@ -162,7 +162,7 @@
                                         Deposit
                                     </div>
                                 </div>
-                                {{-- <div style="flex-direction: column;" class="col d-flex justify-content-center align-items-center">
+                                <div style="flex-direction: column;" class="col d-flex justify-content-center align-items-center">
                                     <a class="d-flex blalnceCardBtn" href="javascript:void(0)" 
                                         @if ($general->balance_transfer == 0) 
                                             onclick="notifyMsg('User balance transfer currently disabled!','error')" 
@@ -176,7 +176,7 @@
                                     <div class="text-center pt-1">
                                         Transfer
                                     </div>
-                                </div> --}}
+                                </div>
                                 <div style="flex-direction: column;" class="col d-flex justify-content-center align-items-center">
                                     <a class="d-flex blalnceCardBtn" href="javascript:void(0)" data-toggle="modal" data-target="#withdrawModal">
                                         <span class="material-icons">

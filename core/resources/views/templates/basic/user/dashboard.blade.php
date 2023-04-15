@@ -112,7 +112,7 @@
                                     <div class="icon icon-50 rounded-circle mb-2 bg-white-light"><span class="material-icons">arrow_upward</span></div>
                                     <p><small>Withdraw</small></p>
                                 </a>
-                                {{-- <a class="swiper-slide text-white"href="javascript:void(0)" 
+                                <a class="swiper-slide text-white"href="javascript:void(0)" 
                                     @if ($general->balance_transfer == 0) 
                                         onclick="notifyMsg('User balance transfer currently disabled!','error')" 
                                     @else 
@@ -120,7 +120,7 @@
                                     @endif>
                                     <div class="icon icon-50 rounded-circle mb-2 bg-white-light"><span class="material-icons">swap_horiz</span></div>
                                     <p><small>Transfer</small></p>
-                                </a> --}}
+                                </a>
                                 <a href="{{ route('user.deposit.history') }}" class="swiper-slide text-white">
                                     <div class="icon icon-50 rounded-circle mb-2 bg-white-light"><span class="material-icons">history</span></div>
                                     <p><small>Deposit History</small></p>

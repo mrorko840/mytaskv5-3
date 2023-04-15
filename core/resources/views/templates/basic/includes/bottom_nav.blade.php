@@ -35,8 +35,8 @@
           </div>
           <div class="col-auto">
               <a href="{{ route('user.ptc.index') }}" class="{{ request()->path() == 'user/ptc' ? 'active jumpBtn' : '' }}">
-                  <i class="material-icons">extension</i>
-                  <p>Task</p>
+                  <i class="material-icons">redeem</i>
+                  <p>Rewards</p>
               </a>
           </div>
           <div class="col-auto">
