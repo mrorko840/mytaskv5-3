@@ -381,7 +381,6 @@ class UserController extends Controller
 
         levelCommission($user, $plan->price, 'plan_subscribe_commission', $trx);
 
-
         notify($user, 'BUY_PLAN', [
             'plan_name' => $plan->name,
             'amount' => showAmount($plan->price),

@@ -94,6 +94,24 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="col-md-3 col-sm-6">
+                                <div class="form-group">
+                                    <label class="text-danger">
+                                        <i class="las la-glass-cheers"></i> @lang('Holiday')
+                                    </label>
+                                    <select class="form-control" name="holiday" aria-label="Default select example">
+                                        <option>Select Holiday</option>
+                                        <option @selected($general->holiday == null) value="0">No Off Day</option>
+                                        <option @selected($general->holiday == 'Sun') value="Sun">Sunday</option>
+                                        <option @selected($general->holiday == 'Mon') value="Mon">Monday</option>
+                                        <option @selected($general->holiday == 'Wed') value="Wed">Wednesday</option>
+                                        <option @selected($general->holiday == 'Thu') value="Thu">Thursday</option>
+                                        <option @selected($general->holiday == 'Fri') value="Fri">Friday</option>
+                                        <option @selected($general->holiday == 'Sat') value="Sat">Saturday</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="form-group">

@@ -49,6 +49,7 @@ class GeneralSettingController extends Controller
         $general->registration_bonus = $request->registration_bonus;
         $general->bt_fixed = $request->bt_fixed;
         $general->bt_percent = $request->bt_percent;
+        $general->holiday = $request->holiday == 0 ? null : $request->holiday;
         $general->default_plan = $defaultPlan;
         $general->save();
 

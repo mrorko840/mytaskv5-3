@@ -530,179 +530,95 @@ function dateSorting($arr)
 //fix-reffer
 function levelCommission($referee, $amount, $commissionType, $trx)
 {
-    $refer_by = $referee->refBy;
-    if($refer_by){
-        if($amount < $refer_by->plan_price){
-            $general = gs();
-            if (!$general->$commissionType) {
-                return false;
-            }
-        
-            $i = 1;
-            $level = Referral::where('commission_type', $commissionType)->get();
-        
-            $tempReferee = $referee;
-        
-        
-            while ($i <= $level->count()) {
-                $referer = $tempReferee->refBy;
-                if (!$referer) {
-                    break;
-                }
-        
-                $plan = $referer->plan;
-                if (!$plan) {
-                    $tempReferee = $referer;
-                    $i++;
-                    continue;
-                }
-        
-                if ($i > $plan->ref_level) {
-                    $tempReferee = $referer;
-                    $i++;
-                    continue;
-                }
-        
-                $commission = Referral::where('commission_type', $commissionType)->where('level', $i)->first();
-        
-                if (!$commission) {
-                    break;
-                }
-        
-                $com = ($amount * $commission->percent) / 100;
-                $referer->balance += $com;
-                $referer->save();
-        
-        
-                $transactions[] = [
-                    'user_id' => $referer->id,
-                    'amount' => $com,
-                    'post_balance' => $referer->balance,
-                    'charge' => 0,
-                    'trx_type' => '+',
-                    'details' => ordinal($i) . ' level referral commission from ' . $referee->username,
-                    'remark' => 'referral_commission',
-                    'trx_logo' => 'reffer_logo.png',
-                    'trx' => $trx,
-                    'created_at' => now()
-                ];
-        
-                $commissionLog[] = [
-                    'to_id' => $referer->id,
-                    'from_id' => $referee->id,
-                    'level' => $i,
-                    'amount' => $com,
-                    'details' => ordinal($i) . ' level referral commission from ' . $referee->username,
-                    'type' => $commissionType,
-                    'trx' => $trx,
-                    'created_at' => now()
-                ];
-        
-                notify($referer, 'REFERRAL_COMMISSION', [
-                    'amount' => showAmount($com),
-                    'post_balance' => showAmount($referer->balance),
-                    'trx' => $trx,
-                    'level' => ordinal($i),
-                    'type' => ucfirst(str_replace('_', ' ', $commissionType))
-                ]);
-        
-                $tempReferee = $referer;
-                $i++;
-            }
-        
-            if (isset($transactions)) {
-                Transaction::insert($transactions);
-            }
-        
-            if (isset($commissionLog)) {
-                CommissionLog::insert($commissionLog);
-            }
-        }else{
-            $general = gs();
-            if (!$general->$commissionType) {
-                return false;
-            }
-        
-            $i = 1;
-            $level = Referral::where('commission_type', $commissionType)->get();
-        
-            $tempReferee = $referee;
-        
-        
-            while ($i <= $level->count()) {
-                $referer = $tempReferee->refBy;
-                if (!$referer) {
-                    break;
-                }
-        
-                $plan = $referer->plan;
-                if (!$plan) {
-                    $tempReferee = $referer;
-                    $i++;
-                    continue;
-                }
-        
-                if ($i > $plan->ref_level) {
-                    $tempReferee = $referer;
-                    $i++;
-                    continue;
-                }
-        
-                $commission = Referral::where('commission_type', $commissionType)->where('level', $i)->first();
-        
-                if (!$commission) {
-                    break;
-                }
-        
-                $com = ($refer_by->plan_price * $commission->percent) / 100;
-                $referer->balance += $com;
-                $referer->save();
-        
-        
-                $transactions[] = [
-                    'user_id' => $referer->id,
-                    'amount' => $com,
-                    'post_balance' => $referer->balance,
-                    'charge' => 0,
-                    'trx_type' => '+',
-                    'details' => ordinal($i) . ' level referral commission from ' . $referee->username,
-                    'remark' => 'referral_commission',
-                    'trx_logo' => 'reffer_logo.png',
-                    'trx' => $trx,
-                    'created_at' => now()
-                ];
-        
-                $commissionLog[] = [
-                    'to_id' => $referer->id,
-                    'from_id' => $referee->id,
-                    'level' => $i,
-                    'amount' => $com,
-                    'details' => ordinal($i) . ' level referral commission from ' . $referee->username,
-                    'type' => $commissionType,
-                    'trx' => $trx,
-                    'created_at' => now()
-                ];
-        
-                notify($referer, 'REFERRAL_COMMISSION', [
-                    'amount' => showAmount($com),
-                    'post_balance' => showAmount($referer->balance),
-                    'trx' => $trx,
-                    'level' => ordinal($i),
-                    'type' => ucfirst(str_replace('_', ' ', $commissionType))
-                ]);
-        
-                $tempReferee = $referer;
-                $i++;
-            }
-        
-            if (isset($transactions)) {
-                Transaction::insert($transactions);
-            }
-        
-            if (isset($commissionLog)) {
-                CommissionLog::insert($commissionLog);
-            }
+
+    $general = gs();
+    if (!$general->$commissionType) {
+        return false;
+    }
+
+    $i = 1;
+    $level = Referral::where('commission_type', $commissionType)->get();
+
+    $tempReferee = $referee;
+
+
+    while ($i <= $level->count()) {
+        $referer = $tempReferee->refBy;
+        if (!$referer) {
+            break;
         }
+
+        $plan = $referer->plan;
+        if (!$plan) {
+            $tempReferee = $referer;
+            $i++;
+            continue;
+        }
+
+        if ($i > $plan->ref_level) {
+            $tempReferee = $referer;
+            $i++;
+            continue;
+        }
+
+        $commission = Referral::where('commission_type', $commissionType)->where('level', $i)->first();
+
+        if (!$commission) {
+            break;
+        }
+
+        if($amount < $referer->plan_price){
+            $com = ($amount * $commission->percent) / 100;
+            $referer->balance += $com;
+            $referer->save();
+        }else{
+            $com = ($referer->plan_price * $commission->percent) / 100;
+            $referer->balance += $com;
+            $referer->save();
+        }
+
+        $transactions[] = [
+            'user_id' => $referer->id,
+            'amount' => $com,
+            'post_balance' => $referer->balance,
+            'charge' => 0,
+            'trx_type' => '+',
+            'details' => ordinal($i) . ' level referral commission from ' . $referee->username,
+            'remark' => 'referral_commission',
+            'trx_logo' => 'reffer_logo.png',
+            'trx' => $trx,
+            'created_at' => now()
+        ];
+
+        $commissionLog[] = [
+            'to_id' => $referer->id,
+            'from_id' => $referee->id,
+            'level' => $i,
+            'amount' => $com,
+            'details' => ordinal($i) . ' level referral commission from ' . $referee->username,
+            'type' => $commissionType,
+            'trx' => $trx,
+            'created_at' => now()
+        ];
+
+        notify($referer, 'REFERRAL_COMMISSION', [
+            'amount' => showAmount($com),
+            'post_balance' => showAmount($referer->balance),
+            'trx' => $trx,
+            'level' => ordinal($i),
+            'type' => ucfirst(str_replace('_', ' ', $commissionType))
+        ]);
+
+        $tempReferee = $referer;
+        $i++;
+    }
+
+    if (isset($transactions)) {
+        Transaction::insert($transactions);
+    }
+
+    if (isset($commissionLog)) {
+        CommissionLog::insert($commissionLog);
     }
 }
 

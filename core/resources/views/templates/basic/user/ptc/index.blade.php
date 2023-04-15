@@ -134,77 +134,86 @@
             </div>
 
             <div class="main-container">
-                <div class="row">
-                    <div class="col-12 text-center">
-                        @if (auth()->user()->isClick < date('Yd'))
-                            <h5 class="text-primary" id="btnMsg">Click this button to collect
-                                {{ $user->plan?->ads_rate }} {{ $general->cur_sym }}</h5>
-                        @else
-                            <h5 class="text-success text-danger">You can collect Reward Tomorrow!</h5>
-                        @endif
+                @if ($general->holiday == Date('D'))
+                    <h2 class="text-center">Today is Holiday</h2>
+                    <div class="row">
+                        <div class="col text-center">
+                            <img width="90%" src="{{asset('assets/templates/basic/assets/img/holiday.png')}}" alt="Holiday">
+                        </div>
                     </div>
-                    {{-- <div class="col-12 text-center">
-                        @if (auth()->user()->isClick < date('Yd'))
-                            <div id="loadBtn">
+                @else
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            @if (auth()->user()->isClick < date('Yd'))
+                                <h5 class="text-primary" id="btnMsg">Click this button to collect
+                                    {{ $user->plan?->ads_rate }} {{ $general->cur_sym }}</h5>
+                            @else
+                                <h5 class="text-success text-danger">You can collect Reward Tomorrow!</h5>
+                            @endif
+                        </div>
+                        {{-- <div class="col-12 text-center">
+                            @if (auth()->user()->isClick < date('Yd'))
+                                <div id="loadBtn">
+                                    <div ontouchstart="">
+                                        <div class="button">
+                                        <a href="javascript:void(0)" id="runTask">
+                                            <span class="material-icons pt-1 pl-1 text-white" style="font-size: 90px">
+                                                play_arrow
+                                            </span>
+                                        </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            @else
                                 <div ontouchstart="">
-                                    <div class="button">
-                                      <a href="javascript:void(0)" id="runTask">
+                                    <div class="buttonOff">
+                                    <a href="javascript:void(0)" id="noTask">
+                                        <span class="material-icons text-white" style="font-size: 90px">
+                                            pause
+                                        </span>
+                                    </a>
+                                    </div>
+                                </div>
+                            @endif
+
+                        </div> --}}
+
+                        <div class="col-12 text-center">
+                            @if (auth()->user()->isClick < date('Yd'))
+                                <div id="loadBtn">
+                                    <img id="runTask" width="180px" height="180px" class="rounded-circle shadow" src="{{asset('assets/templates/basic/assets/img/button/playBtn.png')}}" alt="">
+                                </div>
+                            @else
+                                <img id="runTask" width="180px" height="180px" class="rounded-circle shadow" src="{{asset('assets/templates/basic/assets/img/button/pauseBtn.png')}}" alt="">
+                            @endif
+
+                        </div>
+
+                        {{-- <div class="col-12 text-center">
+                            @if (auth()->user()->isClick < date('Yd'))
+                                <div id="loadBtn">
+                                    <button
+                                        class="btn btn-success bg-success btn-lg rounded-circle shadow border border-5 StyleFont"
+                                        style="width: 150px; height: 150px; border: 5px solid #ffffff !important;"
+                                        id="runTask">
                                         <span class="material-icons pt-1 pl-1 text-white" style="font-size: 90px">
                                             play_arrow
                                         </span>
-                                      </a>
-                                    </div>
+                                    </button>
                                 </div>
-                            </div>
-                        @else
-                            <div ontouchstart="">
-                                <div class="buttonOff">
-                                <a href="javascript:void(0)" id="noTask">
-                                    <span class="material-icons text-white" style="font-size: 90px">
-                                        pause
-                                    </span>
-                                </a>
-                                </div>
-                            </div>
-                        @endif
-
-                    </div> --}}
-
-                    <div class="col-12 text-center">
-                        @if (auth()->user()->isClick < date('Yd'))
-                            <div id="loadBtn">
-                                <img id="runTask" width="180px" height="180px" class="rounded-circle shadow" src="{{asset('assets/templates/basic/assets/img/button/playBtn.png')}}" alt="">
-                            </div>
-                        @else
-                            <img id="runTask" width="180px" height="180px" class="rounded-circle shadow" src="{{asset('assets/templates/basic/assets/img/button/pauseBtn.png')}}" alt="">
-                        @endif
-
-                    </div>
-
-                    {{-- <div class="col-12 text-center">
-                        @if (auth()->user()->isClick < date('Yd'))
-                            <div id="loadBtn">
-                                <button
-                                    class="btn btn-success bg-success btn-lg rounded-circle shadow border border-5 StyleFont"
-                                    style="width: 150px; height: 150px; border: 5px solid #ffffff !important;"
-                                    id="runTask">
-                                    <span class="material-icons pt-1 pl-1 text-white" style="font-size: 90px">
-                                        play_arrow
-                                    </span>
+                            @else
+                                <button class="btn btn-warning btn-lg rounded-circle shadow border border-5 StyleFont"
+                                    style="width: 150px; height: 150px; border: 5px solid #ffffff !important;" disabled>
+                                    Click
                                 </button>
-                            </div>
-                        @else
-                            <button class="btn btn-warning btn-lg rounded-circle shadow border border-5 StyleFont"
-                                style="width: 150px; height: 150px; border: 5px solid #ffffff !important;" disabled>
-                                Click
-                            </button>
-                        @endif
+                            @endif
 
-                    </div> --}}
-                    <div class="col-12 py-2 text-center">
-                        <h5 id="counter"></h5>
+                        </div> --}}
+                        <div class="col-12 py-2 text-center">
+                            <h5 id="counter"></h5>
+                        </div>
                     </div>
-                </div>
+                @endif
             </div>
         </main>
 

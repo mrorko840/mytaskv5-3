@@ -25,7 +25,7 @@
                 <p class="text-default-secondary">My Balance</p>
             </div>
             <div class="col-auto">
-                <a href="javascript:void(0)" data-toggle="modal" data-target="#depositModal" class="btn btn-default btn-40 rounded-circle dpbtnSidebar"><i
+                <a href="javascript:void(0)" data-toggle="modal" data-target="#depositModal" class="btn btn-default btn-40 rounded-circle border-0 dpbtnSidebar"><i
                         class="material-icons">add</i></a>
             </div>
         </div>

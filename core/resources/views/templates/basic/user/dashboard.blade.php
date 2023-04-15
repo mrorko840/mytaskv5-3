@@ -271,7 +271,7 @@
 
                         <h5 class="text-dark">Add to <span class="font-weight-bold">Home screen</span></h5>
                         <p class="text-secondary">See  as in fullscreen on your device.</p>
-                        <button data-toggle="modal" data-target="#appDownloadModal" class="btn btn-sm btn-default px-4 rounded" id="addtohome">Install</button>
+                        <button data-toggle="modal" data-target="#appDownloadModal" class="btn btn-sm btn-default px-4 rounded border-0" id="addtohome">Install</button>
                     </div>
                 </div>
             </div>
@@ -318,7 +318,7 @@
                     <input type="text" class="form-control" placeholder="refferal Link"
                         value="{{ route('user.register') }}/{{ auth()->user()->username }}" id="link">
                     <div class="input-group-append">
-                        <button class="btn btn-default rounded" type="button" id="basic-addon2"
+                        <button class="btn btn-default border-0 rounded" type="button" id="basic-addon2"
                             onclick="copyRefLink()">Copy link</button>
                     </div>
                 </div>

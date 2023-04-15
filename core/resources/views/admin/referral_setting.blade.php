@@ -44,7 +44,9 @@
                             <input type="hidden" name="commission_type" value="{{ $key  }}">
                                 <h6 class="text--danger mb-3">@lang('The Old setting will be removed after generating new')</h6>
                                 <div class="form-group">
-                                    <div class="referralLevels"></div>
+                                    <div class="referralLevels">
+
+                                    </div>
                                 </div>
                             <button type="submit" class="btn btn--primary h-45 w-100">@lang('Submit')</button>
                         </form>
@@ -103,24 +105,25 @@
         });
 
         //submit
-        $(document).on('submit', '.referForm', function (e) {
-            e.preventDefault();
-            // alert()
-            let formData = new FormData($('.referForm')[0]);
-            $.ajax({
-                type: "POST",
-                url: "{{ route('admin.referrals.update') }}",
-                data: formData,
-                processData: false,
-                dataType: "json",
-                contentType: false,
-                success: function (res) {
-                    console.log(res);
-                    $('#referBody').load(location.href+" #referBody");
-                    notifyMsg(res.msg,res.cls);
-                }
-            });
-        });
+        
+        // $(document).on('submit', '.referForm', function (e) {
+        //     e.preventDefault();
+        //     // alert()
+        //     let formData = new FormData($('.referForm')[0]);
+        //     $.ajax({
+        //         type: "POST",
+        //         url: "{{ route('admin.referrals.update') }}",
+        //         data: formData,
+        //         processData: false,
+        //         dataType: "json",
+        //         contentType: false,
+        //         success: function (res) {
+        //             console.log(res);
+        //             $('#referBody').load(location.href+" #referBody");
+        //             notifyMsg(res.msg,res.cls);
+        //         }
+        //     });
+        // });
     </script>
 
 

@@ -111,14 +111,47 @@
     @stack('style-custom')
 
     <link rel="stylesheet" href="{{ asset($activeTemplateTrue . 'css/color.php') }}?color1={{ $general->base_color }}&color2={{ $general->secondary_color }}">
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+    
+    <style>
+        .swiper-slide {
+            background-position: center;
+            background-size: cover;
+            width: 300px;
+            height: auto;
+        }
+        .custom_preload{
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 9999999999;
+        }
+        .loderCustom{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50% -50%)
+        }
+
+    </style>
 </head>
 
 <body>
 
     @stack('fbComment')
 
+<div id="preLoadCustom">
+    <div class="custom_preload d-flex align-items-center justify-content-center">
+        <img width="40px" class="loaderCustom" src="{{asset('assets/templates/basic/assets/img/loader/loading-gif.gif')}}" alt="">
+    </div>
+</div>
+
     <!-- screen loader -->
-    <div class="container-fluid h-100 loader-display">
+    {{-- <div class="container-fluid h-100 loader-display">
         <div class="row h-100">
             <div class="align-self-center col">
                 <div class="logo-loading">
@@ -137,18 +170,8 @@
                 </div>
             </div>
         </div>
-    </div>
-
-
-    {{-- <div class="preloader">
-        <div class="dl">
-            <div class="dl__container">
-                <div class="dl__corner--top"></div>
-                <div class="dl__corner--bottom"></div>
-            </div>
-            <div class="dl__square"></div>
-        </div>
     </div> --}}
+
 
     <!-- scroll-to-top start -->
     {{-- <div class="scroll-to-top">
@@ -201,8 +224,6 @@
     <!-- Swiper slider  js-->
     <script src="{{ asset($activeTemplateTrue . 'assets/vendor/swiper/js/swiper.min.js') }}"></script>
 
-
-
     <!-- chart js-->
     <script src="{{ asset($activeTemplateTrue . 'assets/vendor/chartjs/Chart.bundle.min.js') }}"></script>
     <script src="{{ asset($activeTemplateTrue . 'assets/vendor/chartjs/utils.js') }}"></script>
@@ -238,8 +259,6 @@
             }
         });
     </script>
-    
-
 
     <script>
         //-- Notify --//
@@ -253,6 +272,21 @@
                 timer: 2100
             })
         }
+
+        //preloader custom//
+        $(window).on('load', function () {
+            $('#preLoadCustom').delay(100).fadeOut(100);
+        });
+
+        // $('a').click(function () {
+        //     $('#preLoadCustom').delay(100).fadeIn(100);
+        //     $('#preLoadCustom').delay(100).fadeOut(100);
+        // });
+
+        // $('button').click(function () {
+        //     $('#preLoadCustom').delay(100).fadeIn(100);
+        //     $('#preLoadCustom').delay(100).fadeOut(100);
+        // });
         
         (function($) {
             "use strict";
@@ -308,6 +342,27 @@
 
         })(jQuery);
     </script>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
+<script>
+    var swiper = new Swiper(".mySwiper", {
+    //   effect: "coverflow",
+      grabCursor: true,
+      centeredSlides: true,
+      slidesPerView: "auto",
+      coverflowEffect: {
+        rotate: 50,
+        stretch: 0,
+        depth: 100,
+        modifier: 1,
+        slideShadows: true,
+      },
+      pagination: {
+        el: ".swiper-pagination",
+      },
+    });
+</script>
 
 </body>
 

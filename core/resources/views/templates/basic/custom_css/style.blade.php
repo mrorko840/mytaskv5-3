@@ -12822,4 +12822,19 @@ Table of content
     .text-ash {
         color: #999999 !important;
     }
+
+    .loginBtn{
+        background-image: linear-gradient(to right, #00c4ff 0%, #ce35dc 100%);
+        color: white;
+        border: 0px solid transparent;
+        box-shadow: 0 0.5rem 1rem #ca4dde29 !important;
+      }
+
+      .loginBtn:hover {
+        background-image: linear-gradient(to left, #00c4ff 0%, #ce35dc 100%);
+        color: white;
+        border: 0px solid transparent;
+        box-shadow: 0 0.5rem 1rem #ca4dde29 !important;
+      }
+      
 </style>

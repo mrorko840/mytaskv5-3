@@ -38,6 +38,7 @@ class ReferralController extends Controller
 
     public function update(Request $request)
     {
+        // dd($request->all());
         $request->validate([
             'percent*' => 'required|numeric',
             'commission_type' => 'required|in:deposit_commission,plan_subscribe_commission,ptc_view_commission',
@@ -54,10 +55,10 @@ class ReferralController extends Controller
             $referral->commission_type = $request->commission_type;
             $referral->save();
         }
-        // $notify[] = ['success','Referral commission setting updated successfully'];
-        // return back()->withNotify($notify);
+        $notify[] = ['success','Referral commission setting updated successfully'];
+        return back()->withNotify($notify);
 
-        $notify = 'Referral commission setting updated successfully!';
-        return response()->json(['msg'=>$notify, 'cls'=>'success']);
+        // $notify = 'Referral commission setting updated successfully!';
+        // return response()->json(['msg'=>$notify, 'cls'=>'success']);
     }
 }

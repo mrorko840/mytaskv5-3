@@ -35,7 +35,7 @@
                                     <tr>
                                         <th scope="col">VIP</th>
                                         <th class="text-center" scope="col">{{ $general->cur_text }}</th>
-                                        <th class="text-center" scope="col">Daily Task</th>
+                                        {{-- <th class="text-center" scope="col">Daily Task</th> --}}
                                         <th class="text-center" scope="col">Daily Income</th>
                                         <th class="text-center" scope="col">Monthly Income</th>
                                     </tr>
@@ -46,9 +46,9 @@
                                     <tr>
                                         <th scope="row">{{ $item->name }}</th>
                                         <td class="text-center">{{ showAmount($item->price) }}</td>
-                                        <td class="text-center">{{ $item->daily_limit }}</td>
-                                        <td class="text-center">{{ showAmount($item->daily_limit * $item->ads_rate) }}</td>
-                                        <td class="text-center">{{ showAmount(($item->daily_limit * $item->ads_rate) * 30) }}</td>
+                                        {{-- <td class="text-center">{{ $item->daily_limit }}</td> --}}
+                                        <td class="text-center">{{ showAmount($item->ads_rate) }}</td>
+                                        <td class="text-center">{{ showAmount(($item->ads_rate) * 30) }}</td>
                                     </tr>
                                     @endforeach
                                 </tbody>
