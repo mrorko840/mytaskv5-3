@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AutoPaymentController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -82,6 +83,10 @@ Route::middleware('admin')->group(function () {
 
     // Deposit Gateway
     Route::name('gateway.')->prefix('gateway')->group(function () {
+
+        //eDokanPay
+        Route::get('edokanpay', [AutoPaymentController::class, 'index'])->name('edokanpay.index');
+        Route::post('edokanpay', [AutoPaymentController::class, 'update'])->name('edokanpay.update');
 
         // Automatic Gateway
         Route::controller('AutomaticGatewayController')->group(function () {
@@ -214,7 +219,6 @@ Route::middleware('admin')->group(function () {
         Route::post('language/delete/key/{id}', 'deleteLanguageJson')->name('language.delete.key');
         Route::post('language/update/key/{id}', 'updateLanguageJson')->name('language.update.key');
     });
-
     Route::controller('GeneralSettingController')->group(function () {
         // General Setting
         Route::get('general-setting', 'index')->name('setting.index');

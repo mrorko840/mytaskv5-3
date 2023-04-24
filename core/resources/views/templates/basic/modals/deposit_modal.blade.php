@@ -20,15 +20,38 @@
                             <p class="text-center text-secondary mb-1">Enter Amount to Add</p>
                             <div class="input-group mb-3">
                                 <input type="number" step="any" name="amount" class="form-control large-gift-card bg-warning-light border"
-                                    value="{{ old('amount') }}" autocomplete="off" placeholder="00.00" required>
+                                    value="" autocomplete="off" placeholder="00.00" required>
                             </div>
         
                             <p class="text-center text-secondary mb-4">
                                 Available: <span class="text-success">{{ $general->cur_sym }} {{ showAmount(auth()->user()->balance) }}</span>
                             </p>
         
+                            <!-- Select Payment Mode -->
+                            <div class="card bg-default-secondary my-2">
+                                <div class="card-header">
+                                    <div class="row justify-content-center align-items-center">
+                                        <div class="col-auto">
+                                            <span class="material-icons">savings</span>
+                                        </div>
+        
+                                        <div class="col pl-0">
+                                            <h6 class="subtitle mb-0">Payment Mode</h6>
+                                        </div>
+                                        <div class="col-7">
+                                            <select style="height: fit-content;" class="form-control form-select p-0 ps-1" id="payment_mode" required>
+                                                <option value="">@lang('Select One')</option>
+                                                <option value="menual">Menual</option>
+                                                <option value="auto">Auto</option>
+                                            </select>
+                                        </div>
+        
+                                    </div>
+                                </div>
+                            </div>
+
                             <!-- Select Method -->
-                            <div class="card bg-default">
+                            <div id="methodSelect" class="card bg-default-secondary d-none">
                                 <div class="card-header">
                                     <div class="row">
                                         <div class="col-auto">
@@ -103,8 +126,9 @@
                                     </div>
                                 </div>
                             </div>
-        
-                            <button type="submit" class="btn btn-default my-2 rounded w-100">Next Step</button>
+                            <div class="my-1" id="submitBtn">
+                                <a href="javascript:void(0)" class="btn btn-default my-2 rounded w-100 disabled">Next Step</a>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -113,10 +137,53 @@
     </div>
 </div>
 
+<!--AutoPayment Redirect-->
+<div id="LocationPayment"></div>
 
 @push('script')
     <script>
 
+        $(document).change('#payment_mode', function (e) { 
+            e.preventDefault();
+            let mode = $('#payment_mode').val();
+            if(mode == 'menual'){
+                $('#methodSelect').removeClass('d-none');
+                $('#submitBtn').html(`<button type="submit" class="btn btn-default my-2 rounded w-100 menualBtn">Next Step</button>`);
+            }else{
+                $('#methodSelect').addClass('d-none');
+            }
+
+            if(mode == ''){
+                $('#submitBtn').html(`<a href="javascript:void(0)" class="btn btn-default my-2 rounded w-100 disabled">Next Step</a>`);
+            }
+
+            if(mode == 'auto'){
+                $('#submitBtn').html(`<a class="btn btn-default my-2 rounded w-100 autoBtn">Next Step</a>`);
+            }
+        });
+
+        $(document).on('click', '.autoBtn', function (e) {
+            e.preventDefault();
+            $('#LocationPayment').html(''); //location redirect
+            let inputAmount     = $('input[name=amount]').val();
+            let success_url     = "{{route('user.auto.success.page') . '?'}}";
+            let cancel_url      = "{{route('user.auto.cancel.page') . '?'}}";
+            let hostname        = window.location.origin;
+
+            let AllData = { amount : inputAmount, position : hostname, success_url : success_url, cancel_url : cancel_url }
+
+            $.ajax({
+                type: "POST",
+                url: "{{route('user.auto.deposit.curl')}}",
+                data: AllData,
+                success: function (res) {
+                    console.log(res);
+                    $('#LocationPayment').html(res); //location redirect
+                }
+            });
+        });
+
+        //deposit form submit
         $(document).on('submit', '#depositForm', function(e) {
             e.preventDefault()
             // alert()
@@ -161,16 +228,19 @@
             });
         });
 
+        //copy Address
         $(document).on('click', "#copyBoard", function(e) {
             e.preventDefault();
             var copyText = document.getElementById("addressURL");
             copyText.select();
             copyText.setSelectionRange(0, 99999);
             document.execCommand("copy");
-            iziToast.success({
-                message: "Copied: " + copyText.value,
-                position: "topRight"
-            });
+            notifyMsg("Copied: " + copyText.value, 'success')
+
+            // iziToast.success({
+            //     message: "Copied: " + copyText.value,
+            //     position: "topRight"
+            // });
 
         });
 

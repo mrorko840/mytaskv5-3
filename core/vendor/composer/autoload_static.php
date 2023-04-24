@@ -456,8 +456,8 @@ class ComposerStaticInite96c65c98b83566c4614faeca3ae987a
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -831,6 +831,7 @@ class ComposerStaticInite96c65c98b83566c4614faeca3ae987a
         'App\\Models\\Admin' => __DIR__ . '/../..' . '/app/Models/Admin.php',
         'App\\Models\\AdminNotification' => __DIR__ . '/../..' . '/app/Models/AdminNotification.php',
         'App\\Models\\AdminPasswordReset' => __DIR__ . '/../..' . '/app/Models/AdminPasswordReset.php',
+        'App\\Models\\AutoPayment' => __DIR__ . '/../..' . '/app/Models/AutoPayment.php',
         'App\\Models\\CommissionLog' => __DIR__ . '/../..' . '/app/Models/CommissionLog.php',
         'App\\Models\\Deposit' => __DIR__ . '/../..' . '/app/Models/Deposit.php',
         'App\\Models\\Extension' => __DIR__ . '/../..' . '/app/Models/Extension.php',

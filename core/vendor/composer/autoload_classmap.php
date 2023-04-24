@@ -136,6 +136,7 @@ return array(
     'App\\Models\\Admin' => $baseDir . '/app/Models/Admin.php',
     'App\\Models\\AdminNotification' => $baseDir . '/app/Models/AdminNotification.php',
     'App\\Models\\AdminPasswordReset' => $baseDir . '/app/Models/AdminPasswordReset.php',
+    'App\\Models\\AutoPayment' => $baseDir . '/app/Models/AutoPayment.php',
     'App\\Models\\CommissionLog' => $baseDir . '/app/Models/CommissionLog.php',
     'App\\Models\\Deposit' => $baseDir . '/app/Models/Deposit.php',
     'App\\Models\\Extension' => $baseDir . '/app/Models/Extension.php',

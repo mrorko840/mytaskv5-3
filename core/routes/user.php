@@ -136,6 +136,11 @@ Route::middleware('auth')->name('user.')->group(function () {
             Route::get('deposit/confirm', 'depositConfirm')->name('deposit.confirm');
             Route::get('deposit/manual', 'manualDepositConfirm')->name('deposit.manual.confirm');
             Route::post('deposit/manual', 'manualDepositUpdate')->name('deposit.manual.update');
+            
+            //curl-edokanpay
+            Route::post('/curl-deposit-auto', 'autoDepositcUrl')->name('auto.deposit.curl');
+            Route::get('deposit-auto-cancel', 'cancelPage')->name('auto.cancel.page');
+            Route::get('deposit-auto-success', 'successPage')->name('auto.success.page');
         });
     });
 });

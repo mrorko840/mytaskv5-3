@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Gateway;
 
-use App\Http\Controllers\Controller;
-use App\Lib\FormProcessor;
-use App\Models\AdminNotification;
-use App\Models\Deposit;
-use App\Models\GatewayCurrency;
-use App\Models\Transaction;
 use App\Models\User;
+use App\Models\Deposit;
+use App\Lib\FormProcessor;
+use App\Models\AutoPayment;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
+use App\Models\GatewayCurrency;
+use App\Models\AdminNotification;
+use App\Http\Controllers\Controller;
 
 class PaymentController extends Controller
 {
@@ -250,6 +251,46 @@ class PaymentController extends Controller
         $cls = 'warning';
         $notify = 'You have deposit request has been taken!';
         return response()->json(['msg'=>$notify, 'cls'=>$cls]);
+    }
+
+
+    public function autoDepositcUrl(Request $request){
+        // dd($request->all());
+        $autoPayment = AutoPayment::first();
+        $apikey = $autoPayment->api_key; //Your Api Key
+        $clientkey = $autoPayment->client_key; //Your Client Key
+        $secretkey = $autoPayment->secret_key; //Your Secret Key
+        
+        $amount = $request->amount;
+        
+        $cus_name = auth()->user()->name;
+        $cus_email = auth()->user()->email;
+
+        $success_url = $request->success_url; //success url
+        $cancel_url = $request->cancel_url; //cancel url
+        $hostname = $request->position;
+
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => 'https://pay.edokanpay.com/checkout.php',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'POST',
+        CURLOPT_POSTFIELDS => array('api' => $apikey,'client' => $clientkey,'secret' => $secretkey,'amount' => $amount,'position' => $hostname,'success_url' => $success_url,'cancel_url' => $cancel_url,'cus_name' => $cus_name,'cus_email' => $cus_email),
+        ));
+        $response = curl_exec($curl);
+        curl_close($curl);
+        echo $response;
+        // return response()->json(['curl'=>$response]);
+    }
+
+    public function cancelPage(){
+        $pageTitle = "Cancel Payment";
+        return view('templates.basic.user.payment.edokanpay.cancel', compact('pageTitle'));
     }
 
 

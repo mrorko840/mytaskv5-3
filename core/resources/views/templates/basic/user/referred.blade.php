@@ -1,9 +1,6 @@
 @extends($activeTemplate.'layouts.master')
 @section('content')
 
-
-
-
 <body class="body-scroll d-flex flex-column h-100 menu-overlay" data-page="homepage">
     <!-- Begin page content -->
     <main class="flex-shrink-0 main">
@@ -207,7 +204,8 @@
             copyText.select();
             copyText.setSelectionRange(0, 99999);
             document.execCommand("copy");
-            notify('success', "Copied: " + copyText.value);
+            notifyMsg("<p class='text-success'>Copied: " + copyText.value + " </p>", 'success')
+            // notify('success', "Copied: " + copyText.value);
         }
     </script>
 @endpush

@@ -221,6 +221,12 @@
                     <div class="sidebar-submenu {{menuActive('admin.gateway*',2)}} ">
                         <ul>
 
+                            <li class="sidebar-menu-item {{menuActive('admin.gateway.edokanpay.index')}} ">
+                                <a href="{{route('admin.gateway.edokanpay.index')}}" class="nav-link">
+                                    <i class="menu-icon las la-dot-circle"></i>
+                                    <span class="menu-title">@lang('eDokanPay Api')</span>
+                                </a>
+                            </li>
                             <li class="sidebar-menu-item {{menuActive('admin.gateway.automatic.*')}} ">
                                 <a href="{{route('admin.gateway.automatic.index')}}" class="nav-link">
                                     <i class="menu-icon las la-dot-circle"></i>

@@ -266,7 +266,8 @@
                 <div class="card" id="addtodevice">
                     <div class="card-body text-center">
                         <div class="row mb-3">
-                            <div class="col-10 col-md-4 mx-auto"><img src="{{ asset($activeTemplateTrue . 'assets/img/install-app.png') }}" alt="" class="mw-100"></div>
+                            <div class="col-10 col-md-4 mx-auto"><img src="{{ asset($activeTemplateTrue . 'assets/img/add-to-home.png') }}" alt="" class="mw-100 border-custom"></div>
+                            {{-- <div class="col-10 col-md-4 mx-auto"><img src="{{ asset($activeTemplateTrue . 'assets/img/install-app.png') }}" alt="" class="mw-100"></div> --}}
                         </div>
 
                         <h5 class="text-dark">Add to <span class="font-weight-bold">Home screen</span></h5>
@@ -277,42 +278,35 @@
             </div>
             <!-- PWA add to home display -->
 
-            {{-- <div class="container mb-4">
-                <div class="card border-0 mb-3">
-                    <div class="card-body">
-                        <div class="row align-items-center">
-                            <div class="col-auto pr-0">
-                                <div class="avatar avatar-50 border-0 bg-danger-light rounded-circle text-danger">
-                                    <i class="material-icons vm text-template">card_giftcard</i>
-                                </div>
-                            </div>
-                            <div class="col-auto align-self-center">
-                                <h6 class="mb-1">3 Gift Cards</h6>
-                                <p class="small text-secondary">Click here to see gift cards</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> --}}
-
             <div class="container mb-4">
                 <div class="card border-0 mb-3">
                     <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col-auto pr-0">
-                                <div class="avatar avatar-50 border-0 bg-danger-light rounded-circle text-danger">
-                                    <i class="material-icons vm text-template">share</i>
+                                <div class="avatar avatar-50 border-0 bg-success-light rounded-circle text-success">
+                                    <i class="material-icons vm text-template">groups</i>
                                 </div>
                             </div>
-                            <div class="col-auto align-self-center">
+                            <div class="col align-self-center">
                                 <h6 class="mb-1">Refer and Earn Rewards</h6>
                                 <p class="small text-secondary">Share your referal link and start earning</p>
+                                
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="refferal Link" value="{{ route('user.register') }}/{{ auth()->user()->username }}" id="link">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-default border-0 rounded" type="button" id="basic-addon2" onclick="copyRefLink()">Copy link</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
+
                     </div>
                 </div>
             </div>
-            <div class="container mb-4">
+
+            {{-- copyLink --}}
+            {{-- <div class="container mb-4">
                 <div class="alert alert-success d-none" id="successmessage">Refferal link copied</div>
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" placeholder="refferal Link"
@@ -322,7 +316,7 @@
                             onclick="copyRefLink()">Copy link</button>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
             <div class="container ">
                 <div class="row" hidden>
@@ -430,7 +424,8 @@
         copyText.select();
         copyText.setSelectionRange(0, 99999);
         document.execCommand("copy");
-        notify('success', "Copied: " + copyText.value);
+        notifyMsg("<p class='text-success'>Copied: " + copyText.value + " </p>", 'success')
+        // notify('success', "Copied: " + copyText.value);
     }
 </script>
 <script>

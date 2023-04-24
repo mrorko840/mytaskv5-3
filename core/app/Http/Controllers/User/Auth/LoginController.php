@@ -2,24 +2,15 @@
 
 namespace App\Http\Controllers\User\Auth;
 
-use App\Http\Controllers\Controller;
 use App\Models\UserLogin;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 
 class LoginController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
-    | to conveniently provide its functionality to your applications.
-    |
-    */
 
     use AuthenticatesUsers;
 
@@ -53,37 +44,92 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-
-        $this->validateLogin($request);
-
-        $request->session()->regenerateToken();
-
-        if(!verifyCaptcha()){
-            $notify[] = ['error','Invalid captcha provided'];
-            return back()->withNotify($notify);
+        // dd($request->session()->regenerateToken());
+        if(!$request->username && !$request->password){
+            $cls = 'error';
+            $notify = 'Username and Password are Required!';
+            return response()->json(['msg'=>$notify, 'cls'=>$cls]);
         }
 
-        // If the class is using the ThrottlesLogins trait, we can automatically throttle
-        // the login attempts for this application. We'll key this by the username and
-        // the IP address of the client making these requests into this application.
-        if ($this->hasTooManyLoginAttempts($request)) {
-            $this->fireLockoutEvent($request);
+        if($this->attemptLogin($request)){
+            // dd('success');
+            $this->validateLogin($request);
+            $request->session()->regenerateToken();
+            $this->sendLoginResponse($request);
+            $this->incrementLoginAttempts($request);
 
-            return $this->sendLockoutResponse($request);
+            if(!verifyCaptcha()){
+                $cls = 'error';
+                $notify = 'Invalid captcha provided';
+                return response()->json(['msg'=>$notify, 'cls'=>$cls]);
+            }
+
+            $cls = 'success';
+            $notify = 'You are Logged In Successfully!';
+            return response()->json(['msg'=>$notify, 'cls'=>$cls]);
+        }else{
+            // dd('error');
+
+            $cls = 'error';
+            $notify = 'Username or Password Incorrect!';
+            return response()->json(['msg'=>$notify, 'cls'=>$cls]);
         }
 
-        if ($this->attemptLogin($request)) {
-            return $this->sendLoginResponse($request);
-        }
+        // $this->validateLogin($request);
 
-        // If the login attempt was unsuccessful we will increment the number of attempts
-        // to login and redirect the user back to the login form. Of course, when this
-        // user surpasses their maximum number of attempts they will get locked out.
-        $this->incrementLoginAttempts($request);
+        // $request->session()->regenerateToken();
+        
+        // if ($this->hasTooManyLoginAttempts($request)) {
+        //     $this->fireLockoutEvent($request);
+
+        //     return $this->sendLockoutResponse($request);
+        // }
+
+        // if ($this->attemptLogin($request)) {
+        //     return $this->sendLoginResponse($request);
+        // }
+        
+        // $this->incrementLoginAttempts($request);
 
 
-        return $this->sendFailedLoginResponse($request);
+        // return $this->sendFailedLoginResponse($request);
+        
     }
+
+    // public function login(Request $request)
+    // {
+    //     $this->validateLogin($request);
+
+    //     $request->session()->regenerateToken();
+
+    //     if(!verifyCaptcha()){
+    //         // $notify[] = ['error','Invalid captcha provided'];
+    //         // return back()->withNotify($notify);
+
+    //         $cls = 'error';
+    //         $notify = 'Invalid captcha provided';
+    //         return response()->json(['msg'=>$notify, 'cls'=>$cls]);
+    //     }
+
+    //     if ($this->hasTooManyLoginAttempts($request)) {
+    //         $this->fireLockoutEvent($request);
+
+    //         return $this->sendLockoutResponse($request);
+    //     }
+
+    //     if ($this->attemptLogin($request)) {
+    //         // dd($this->sendLoginResponse($request));
+    //         return $this->sendLoginResponse($request);
+    //     }
+        
+    //     dd($this->incrementLoginAttempts($request));
+
+    //     $this->incrementLoginAttempts($request);
+
+
+    //     return $this->sendFailedLoginResponse($request);
+        
+    // }
 
     public function findUsername()
     {
